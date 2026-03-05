@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desarrollo Web | Unidad I & II</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Opciones de select en negro para que se lean */
+    .form-select option {
+      background: #ffffff !important;
+      color: #111827 !important;
+    }
+
+    /* ══════════════════════════════════════
+      CAROUSEL PROPIO — sin clases Bootstrap
+    ══════════════════════════════════════ */
+    .hero-wrap {
+      position: relative;
+      width: 100%;
+      height: 560px;
+      overflow: hidden;
+    }
+
+    .hslide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      pointer-events: none;
+    }
+    .hslide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .hslide-1 { background-image: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=80'); }
+    .hslide-2 { background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&q=80'); }
+    .hslide-3 { background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&q=80'); }
+    .hslide-4 { background-image: url('https://images.unsplash.com/photo-1605745341112-85968b19335b?w=1400&q=80'); }
+    .hslide-5 { background-image: url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1400&q=80'); }
+
+    .hslide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(8,12,22,0.88) 0%,
+        rgba(8,12,22,0.55) 55%,
+        rgba(8,12,22,0.18) 100%
+      );
+    }
+
+    .hslide-body {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      padding-left: max(2rem, calc((100vw - 1140px) / 2 + 1rem));
+      padding-right: 2rem;
+    }
+
+    .hslide-inner { max-width: 560px; }
+
+    .hslide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+    }
+
+    .hslide-title .hl {
+      background: linear-gradient(90deg, #00f5d4, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hslide-desc {
+      font-size: 0.97rem;
+      color: rgba(241,245,249,0.75);
+      line-height: 1.7;
+      margin: 0 0 2rem;
+      max-width: 450px;
+    }
+
+    .hslide-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #00f5d4, #3b82f6);
+      color: #080c16;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(0,245,212,0.35);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .hslide-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(0,245,212,0.48);
+      color: #080c16;
+    }
+
+    .hbtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,245,212,0.3);
+      background: rgba(0,245,212,0.10);
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .hbtn:hover { background: rgba(0,245,212,0.25); }
+    .hbtn-prev { left: 1.25rem; }
+    .hbtn-next { right: 1.25rem; }
+
+    .hdots {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+    }
+    .hdot {
+      width: 28px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(0,245,212,0.3);
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: width .3s, background .3s;
+    }
+    .hdot.active {
+      width: 48px;
+      background: #00f5d4;
+    }
+
+    @media (max-width: 576px) {
+      .hero-wrap { height: 420px; }
+      .hslide-body { padding-left: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span>LITC</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto gap-1">
+          <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house me-1"></i>Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/web-apis.html"><i class="bi bi-cloud me-1"></i>Web APIs</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/microservicios.html"><i class="bi bi-diagram-3 me-1"></i>Microservicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/desarrollo-api.html"><i class="bi bi-code-slash me-1"></i>Desarrollo API</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/contenedores.html"><i class="bi bi-box me-1"></i>Contenedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="pages/nube.html"><i class="bi bi-cloud-arrow-up me-1"></i>Nube</a></li>
+          <li class="nav-item ms-2">
+            <button class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#contactModal">
+              <i class="bi bi-envelope me-1"></i>Contacto
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ CAROUSEL ═══════════════ -->
+  <div class="hero-wrap">
+
+    <div class="hslide hslide-1 active">
+      <div class="hslide-body">
+        <div class="hslide-inner">
+          <h2 class="hslide-title">Tecnologías de <span class="hl">Web APIs</span></h2>
+          <p class="hslide-desc">Las APIs son el lenguaje invisible que permite que las aplicaciones se hablen entre sí, evitando que tengas que reinventar la rueda en cada proyecto.</p>
+          <a href="pages/web-apis.html" class="hslide-btn">Explorar tema <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hslide hslide-2">
+      <div class="hslide-body">
+        <div class="hslide-inner">
+          <h2 class="hslide-title"><span class="hl">Microservicios</span> Modernos</h2>
+          <p class="hslide-desc">Arquitectura distribuida que escala de forma independiente — el modelo de Netflix, Amazon y Uber.</p>
+          <a href="pages/microservicios.html" class="hslide-btn">Explorar tema <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hslide hslide-3">
+      <div class="hslide-body">
+        <div class="hslide-inner">
+          <h2 class="hslide-title">Desarrollo de una <span class="hl">Web API</span></h2>
+          <p class="hslide-desc">De cero a producción: diseño, autenticación JWT, documentación Swagger y despliegue profesional.</p>
+          <a href="pages/desarrollo-api.html" class="hslide-btn">Explorar tema <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hslide hslide-4">
+      <div class="hslide-body">
+        <div class="hslide-inner">
+          <h2 class="hslide-title">Manejo de <span class="hl">Contenedores</span></h2>
+          <p class="hslide-desc">Docker y Kubernetes para empaquetar, distribuir y orquestar aplicaciones con total portabilidad.</p>
+          <a href="pages/contenedores.html" class="hslide-btn">Explorar tema <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hslide hslide-5">
+      <div class="hslide-body">
+        <div class="hslide-inner">
+          <h2 class="hslide-title">Apps para la <span class="hl">Nube</span></h2>
+          <p class="hslide-desc">Cloud-native, serverless y escalado automático con AWS, Azure y Google Cloud Platform.</p>
+          <a href="pages/nube.html" class="hslide-btn">Explorar tema <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <button class="hbtn hbtn-prev" id="hPrev" aria-label="Anterior"><i class="bi bi-chevron-left"></i></button>
+    <button class="hbtn hbtn-next" id="hNext" aria-label="Siguiente"><i class="bi bi-chevron-right"></i></button>
+
+    <div class="hdots">
+      <button class="hdot active" data-idx="0"></button>
+      <button class="hdot" data-idx="1"></button>
+      <button class="hdot" data-idx="2"></button>
+      <button class="hdot" data-idx="3"></button>
+      <button class="hdot" data-idx="4"></button>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════ CARDS ═══════════════ -->
+  <section class="py-5">
+    <div class="container">
+      <div class="text-center mb-5 fade-in-up">
+        <div class="section-label">Temario</div>
+        <h2 class="section-title">Temas del Curso</h2>
+        <p class="section-subtitle mx-auto">Haz clic en cualquier tarjeta para acceder al contenido completo de cada unidad.</p>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4 fade-in-up">
+          <a href="pages/web-apis.html" class="topic-card">
+            <div class="card-icon icon-cyan"><i class="bi bi-cloud-haze2"></i></div>
+            <div class="card-title-text">Tecnologías de Web APIs</div>
+            <p class="card-desc">REST, GraphQL, SOAP, WebSockets y los estándares modernos que conectan el ecosistema digital.</p>
+            <div class="card-arrow">Ver más <i class="bi bi-arrow-right"></i></div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4 fade-in-up">
+          <a href="pages/microservicios.html" class="topic-card">
+            <div class="card-icon icon-purple"><i class="bi bi-diagram-3"></i></div>
+            <div class="card-title-text">Microservicios</div>
+            <p class="card-desc">Arquitecturas distribuidas que permiten escalar, desplegar y mantener componentes de forma independiente.</p>
+            <div class="card-arrow">Ver más <i class="bi bi-arrow-right"></i></div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4 fade-in-up">
+          <a href="pages/desarrollo-api.html" class="topic-card">
+            <div class="card-icon icon-pink"><i class="bi bi-code-slash"></i></div>
+            <div class="card-title-text">Desarrollo de una Web API</div>
+            <p class="card-desc">Diseño, implementación y documentación de APIs RESTful profesionales con buenas prácticas de la industria.</p>
+            <div class="card-arrow">Ver más <i class="bi bi-arrow-right"></i></div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4 fade-in-up">
+          <a href="pages/contenedores.html" class="topic-card">
+            <div class="card-icon icon-blue"><i class="bi bi-box-seam"></i></div>
+            <div class="card-title-text">Manejo de Contenedores</div>
+            <p class="card-desc">Docker y Kubernetes para empaquetar y orquestar aplicaciones con portabilidad y consistencia total.</p>
+            <div class="card-arrow">Ver más <i class="bi bi-arrow-right"></i></div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4 fade-in-up">
+          <a href="pages/nube.html" class="topic-card">
+            <div class="card-icon icon-orange"><i class="bi bi-cloud-arrow-up"></i></div>
+            <div class="card-title-text">Aplicaciones para la Nube</div>
+            <p class="card-desc">Cloud-native, serverless y servicios administrados en AWS, Azure y GCP para escalar sin límites.</p>
+            <div class="card-arrow">Ver más <i class="bi bi-arrow-right"></i></div>
+          </a>
+        </div>
+
+        <div class="col-md-6 col-lg-4 fade-in-up">
+          <div class="topic-card" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#contactModal">
+            <div class="card-icon" style="background:rgba(0,245,212,0.07);color:var(--accent-cyan);"><i class="bi bi-envelope"></i></div>
+            <div class="card-title-text">¿Tienes dudas?</div>
+            <p class="card-desc">Envía tus preguntas o comentarios sobre el curso. Nuestro equipo te responderá a la brevedad.</p>
+            <div class="card-arrow">Contactar <i class="bi bi-arrow-right"></i></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5" style="background:var(--bg-card); border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="text-center mb-4">
+      <div class="section-label">Ubicación</div>
+      <h2 class="section-title">Universidad Autónoma de Aguascalientes</h2>
+      <p class="section-subtitle mx-auto">Av. Universidad 940, Ciudad Universitaria, Universidad Autónoma de Aguascalientes, 20100 Aguascalientes, Ags.</p>
+    </div>
+    <div style="border-radius:16px; overflow:hidden; border:1px solid var(--border); box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3702.243847422826!2d-102.29938492479!3d21.876543279988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8429ef600c2a5b05%3A0xd3e16e4b0a8f3e42!2sUniversidad%20Aut%C3%B3noma%20de%20Aguascalientes!5e0!3m2!1ses!2smx!4v1699000000010!5m2!1ses!2smx"
+        width="100%" height="400" style="display:block; border:0;"
+        allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ═══════════════ MODAL CONTACTO ═══════════════ -->
+  <div class="modal fade" id="contactModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-envelope me-2"></i>Formulario de Contacto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:1.5rem;">
+            Completa los campos requeridos. El mensaje es opcional.
+          </p>
+          <form id="contactForm" novalidate>
+            <div class="row g-3">
+
+              <!-- Nombre: solo rojo si falla, sin verde -->
+              <div class="col-md-6">
+                <label class="form-label" for="nombre">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ej. Ana García" />
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <!-- Email: rojo si falla, verde si está bien -->
+              <div class="col-md-6">
+                <label class="form-label" for="email">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" placeholder="correo@ejemplo.com" />
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback">¡Se ve bien!</div>
+              </div>
+
+              <!-- Teléfono: rojo si falla, verde si está bien -->
+              <div class="col-md-6">
+                <label class="form-label" for="telefono">Teléfono (10 dígitos)</label>
+                <input type="tel" class="form-control" id="telefono" placeholder="4491234567" />
+                <div class="invalid-feedback"></div>
+                <div class="valid-feedback">¡Se ve bien!</div>
+              </div>
+
+              <!-- Tema: solo rojo si no selecciona -->
+              <div class="col-md-6">
+                <label class="form-label" for="tema">Tema de interés</label>
+                <select class="form-select" id="tema">
+                  <option value="">Selecciona un tema...</option>
+                  <option>Tecnologías de Web APIs</option>
+                  <option>Microservicios</option>
+                  <option>Desarrollo de una Web API</option>
+                  <option>Manejo de Contenedores</option>
+                  <option>Aplicaciones para la Nube</option>
+                  <option>General / Otro</option>
+                </select>
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <!-- Ocupación: solo rojo si no selecciona -->
+              <div class="col-12">
+                <label class="form-label" for="ocupacion">¿Cómo describes tu relación con el tema?</label>
+                <select class="form-select" id="ocupacion">
+                  <option value="">Selecciona...</option>
+                  <option>Estudiante</option>
+                  <option>Trabajo / Profesional</option>
+                  <option>Hobby / Curiosidad personal</option>
+                </select>
+                <div class="invalid-feedback"></div>
+              </div>
+
+              <!-- Mensaje: completamente opcional, sin validación -->
+              <div class="col-12">
+                <label class="form-label" for="mensaje">
+                  Mensaje <span style="color:var(--text-muted);font-weight:400;">(opcional)</span>
+                </label>
+                <textarea class="form-control" id="mensaje" rows="3"
+                  placeholder="¿Tienes alguna pregunta o comentario?"></textarea>
+              </div>
+
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer gap-2">
+          <button type="button" class="btn-outline-custom" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" form="contactForm" class="btn-primary-custom">
+            <i class="bi bi-send me-1"></i>Enviar mensaje
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer>
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <p>Licenciatura en Informática y Tecnologías Computacionales</p>
+      <p>Daniela Tirado | Desarrollo Web</p>
+    </div>
+  </footer>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    /* ── Carousel propio── */
+    (function () {
+      const slides  = document.querySelectorAll('.hslide');
+      const dots    = document.querySelectorAll('.hdot');
+      let current   = 0;
+      let autoTimer = null;
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = ((n % slides.length) + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      function startAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => goTo(current + 1), 5000);
+      }
+
+      document.getElementById('hPrev').addEventListener('click', () => { goTo(current - 1); startAuto(); });
+      document.getElementById('hNext').addEventListener('click', () => { goTo(current + 1); startAuto(); });
+      dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.idx); startAuto(); }));
+
+      startAuto();
+    })();
+  </script>
+</body>
+</html>

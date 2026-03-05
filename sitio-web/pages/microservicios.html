@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Microservicios | Desarrollo Web</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <style>
+    .form-select option {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+    .card-icon { background: rgba(139,92,246,0.1); color: var(--accent-purple); }
+    .page-hero::before { background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%); }
+    .carousel-tag { border-color: rgba(139,92,246,0.4); color: var(--accent-purple); }
+    .card-arrow, .section-label { color: var(--accent-purple); }
+    .tech-badge { background: rgba(139,92,246,0.1); border-color: rgba(139,92,246,0.25); color: var(--accent-purple); }
+    .content-block h3 { color: var(--accent-purple); }
+    .info-chip { background: rgba(139,92,246,0.06); border-color: rgba(139,92,246,0.15); }
+    .chip-value { color: var(--accent-purple); }
+    .page-hero-title .grad { background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html"><span>LITC</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto gap-1">
+          <li class="nav-item"><a class="nav-link" href="../index.html"><i class="bi bi-house me-1"></i>Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="web-apis.html"><i class="bi bi-cloud me-1"></i>Web APIs</a></li>
+          <li class="nav-item"><a class="nav-link active" href="microservicios.html"><i class="bi bi-diagram-3 me-1"></i>Microservicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="desarrollo-api.html"><i class="bi bi-code-slash me-1"></i>Desarrollo API</a></li>
+          <li class="nav-item"><a class="nav-link" href="contenedores.html"><i class="bi bi-box me-1"></i>Contenedores</a></li>
+          <li class="nav-item"><a class="nav-link" href="nube.html"><i class="bi bi-cloud-arrow-up me-1"></i>Nube</a></li>
+          <li class="nav-item ms-2"><button class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#contactModal"><i class="bi bi-envelope me-1"></i>Contacto</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1 class="page-hero-title fade-in-up">Arquitectura de <span class="grad">Microservicios</span></h1>
+          <p class="page-hero-desc fade-in-up">Divide y vencerás. Los microservicios rompen las aplicaciones monolíticas en servicios pequeños, independientes y altamente escalables.
+          <br>Hoy, gracias a los microservicios, las aplicaciones son como legos: piezas independientes que se comunican entre sí.
+          <br>Ayuda a la:
+          </p>
+          <div class="mt-3 fade-in-up">
+            <span class="tech-badge"><i class="bi bi-check2"></i> Independencia</span>
+            <span class="tech-badge"><i class="bi bi-check2"></i> Escalabilidad</span>
+            <span class="tech-badge"><i class="bi bi-check2"></i> Conexión</span>
+            <span class="tech-badge"><i class="bi bi-check2"></i> Espacio de memoria</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-12 fade-in-up">
+          <div class="content-block">
+            <h3><i class="bi bi-diagram-3"></i> ¿Qué son los Microservicios?</h3>
+            <p>Según IBM y AWS, los microservicios son un enfoque arquitectónico donde una aplicación se divide en servicios pequeños, independientes y especializados. Cada servicio se encarga de una sola función (ej. el carrito de compras, el login o la generación de facturas) y se comunica con los demás mediante APIs. Esto permite que cada pieza use el lenguaje de programación que mejor le convenga.</p>
+            <p>A diferencia de la arquitectura monolítica — donde toda la funcionalidad reside en una sola unidad — los microservicios permiten a los equipos desarrollar, desplegar y escalar cada componente de manera independiente.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 fade-in-up">
+          <div class="content-block h-100">
+            <h3><i class="bi bi-plus-circle"></i> Ventajas</h3>
+            <ul>
+              <li>Despliegue independiente por servicio</li>
+              <li>Escalado granular — solo lo que necesitas</li>
+              <li>Equipos pequeños y autónomos (Conway's Law)</li>
+              <li>Tolerancia a fallos — un fallo no tumba todo</li>
+              <li>Flexibilidad tecnológica por servicio</li>
+              <li>Ciclos de desarrollo más rápidos</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6 fade-in-up">
+          <div class="content-block h-100">
+            <h3><i class="bi bi-exclamation-triangle"></i> Desafíos</h3>
+            <ul>
+              <li>Complejidad de la red y latencia</li>
+              <li>Consistencia de datos distribuidos</li>
+              <li>Depuración y trazabilidad distribuida</li>
+              <li>Gestión de versiones entre servicios</li>
+              <li>Mayor infraestructura requerida</li>
+              <li>Curva de aprendizaje inicial elevada</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6 fade-in-up">
+          <div class="content-block h-100">
+            <h3><i class="bi bi-arrow-left-right"></i> Docker</h3>
+            <p>Docker es una plataforma que permite empaquetar aplicaciones y sus dependencias en contenedores ligeros, facilitando el despliegue y la gestión de microservicios.
+            <br> Para que un microservicio funcione igual en tu laptop que en la nube, usamos Contenedores. Como menciona Intel, la "contenedorización" empaqueta el código junto con sus dependencias.
+            </p>
+          </div>
+        </div>
+
+        
+        <div class="col-md-6 fade-in-up">
+          <div class="content-block h-100">
+            <h3><i class="bi bi-arrow-left-right"></i> Kubernetes</h3>
+            <p>Kubernetes es una plataforma de orquestación de contenedores que automatiza el despliegue, escalado y gestión de aplicaciones en contenedores.
+            <br> Permite gestionar clústeres de máquinas virtuales o físicas para ejecutar y escalar aplicaciones distribuidas.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="col-md-6 fade-in-up">
+          <div class="content-block h-100">
+            <h3><i class="bi bi-plus-circle"></i> La union con las API's</h3>
+            <p>En una arquitectura de microservicios, el sistema no puede hablar con 50 servicios distintos a la vez. Se usa un API Gateway. Este actúa como un recepcionista único: recibe todas las peticiones, las autentica y las redirige al microservicio correcto. 
+              <br>Es la capa esencial de seguridad y orden en el sistema.</p>
+          </div>
+        </div>
+
+                <div class="col-md-6 fade-in-up">
+          <div class="content-block h-100">
+            <h3><i class="bi bi-building"></i>Empresas que lo utilizan</h3>
+            <ul>
+              <li><strong>Netflix</strong></li>
+              <li><strong>Amazon</strong></li>
+              <li><strong>Uber</strong></li>
+              <li><strong>Spotify</strong></li>
+              <li><strong>Twitter</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMAGES -->
+  <section class="content-section">
+    <div class="container">
+      <div class="section-label mb-2 fade-in-up">Visual</div>
+      <h2 class="section-title mb-4 fade-in-up">Arquitectura en Imágenes</h2>
+      <div class="row g-3">
+        <div class="col-md-4 fade-in-up">
+          <div class="img-card">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="Red distribuida" />
+            <div class="img-caption"><i class="bi bi-globe me-1"></i>Sistemas distribuidos modernos</div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in-up">
+          <div class="img-card">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80" alt="Infraestructura" />
+            <div class="img-caption"><i class="bi bi-cpu me-1"></i>Infraestructura de microservicios</div>
+          </div>
+        </div>
+        <div class="col-md-4 fade-in-up">
+          <div class="img-card">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80" alt="Equipo de desarrollo" />
+            <div class="img-caption"><i class="bi bi-people me-1"></i>Equipos autónomos por servicio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="video-section">
+    <div class="container">
+      <div class="section-label mb-2 fade-in-up">Material Extra</div>
+      <h2 class="section-title mb-4 fade-in-up">Video de Apoyo</h2>
+      <div class="row fade-in-up">
+        <div class="col-lg-8 mx-auto">
+          <div class="video-wrapper">
+            <iframe width="100%" height="400"
+              src="https://www.youtube.com/embed/rv4LlmLmVWk"
+              title="Microservicios explicados"
+              frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <p class="mt-3" style="color:var(--text-muted); font-size:0.88rem; text-align:center;"><i class="bi bi-play-circle me-1"></i>Microservicios vs Monolito — Comparativa visual</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- MODAL CONTACTO -->
+<!-- ═══════════════ MODAL CONTACTO ═══════════════ -->
+<div class="modal fade" id="contactModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-envelope me-2"></i>Formulario de Contacto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p style="color:var(--text-muted);font-size:.88rem;margin-bottom:1.5rem;">
+          Completa los campos requeridos. El mensaje es opcional.
+        </p>
+        <form id="contactForm" novalidate>
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label" for="nombre">Nombre completo</label>
+              <input type="text" class="form-control" id="nombre" placeholder="Ej. Ana García" />
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="email">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" placeholder="correo@ejemplo.com" />
+              <div class="invalid-feedback"></div>
+              <div class="valid-feedback">¡Se ve bien!</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="telefono">Teléfono (10 dígitos)</label>
+              <input type="tel" class="form-control" id="telefono" placeholder="4491234567" />
+              <div class="invalid-feedback"></div>
+              <div class="valid-feedback">¡Se ve bien!</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="tema">Tema de interés</label>
+              <select class="form-select" id="tema">
+                <option value="">Selecciona un tema...</option>
+                <option>Tecnologías de Web APIs</option>
+                <option>Microservicios</option>
+                <option>Desarrollo de una Web API</option>
+                <option>Manejo de Contenedores</option>
+                <option>Aplicaciones para la Nube</option>
+                <option>General / Otro</option>
+              </select>
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="ocupacion">¿Cómo describes tu relación con el tema?</label>
+              <select class="form-select" id="ocupacion">
+                <option value="">Selecciona...</option>
+                <option>Estudiante</option>
+                <option>Trabajo / Profesional</option>
+                <option>Hobby / Curiosidad personal</option>
+              </select>
+              <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="mensaje">
+                Mensaje <span style="color:var(--text-muted);font-weight:400;">(opcional)</span>
+              </label>
+              <textarea class="form-control" id="mensaje" rows="3"
+                placeholder="¿Tienes alguna pregunta o comentario?"></textarea>
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer gap-2">
+        <button type="button" class="btn-outline-custom" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" form="contactForm" class="btn-primary-custom">
+          <i class="bi bi-send me-1"></i>Enviar mensaje
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <footer>
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <p>Licenciatura en Informática y Tecnologías Computacionales</p>
+      <p>Daniela Tirado | Desarrollo Web</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
